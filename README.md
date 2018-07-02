@@ -85,7 +85,7 @@ plot(X(:,:,1),X(:,:,2));
 initial_position = zeros(2, 1000);
 number_of_steps = 100;
 step_size = 1;
-cell = @(x, y) sqrt((x / 10) ^ 2 + y ^ 2) &lt; 3;
+cell = @(x, y) sqrt((x / 10) ^ 2 + y ^ 2) < 3;
 
 % generate random walks
 X = rwalk(initial_position, number_of_steps, step_size, cell);
@@ -184,7 +184,7 @@ clf
 initial_position = zeros(3, 100);
 number_of_steps = 1000;
 step_size = 1;
-tube = @(x, y, z) sqrt(x ^ 2 + y ^ 2) &lt; 3;
+tube = @(x, y, z) sqrt(x ^ 2 + y ^ 2) < 3;
 crossing_probability = 0.0005;
 
 % generate random walks
