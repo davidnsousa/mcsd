@@ -1,0 +1,303 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MCSD: MATLAB/Octave tool for Monte-Carlo simulations of diffusion in biological tissues</title><meta name="generator" content="MATLAB 9.4"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2018-07-01"><meta name="DC.source" content="./readmeExtras/README.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1><tt>MCSD</tt>: MATLAB/Octave tool for Monte-Carlo simulations of diffusion in biological tissues</h1><!--introduction--><p>Author: David N. Sousa</p><p>MCSD is a simple MATLAB/Octave tool design to simulate diffusion processes in complex environments such as biological tissues.</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Getting started</a></li><li><a href="#2">Details</a></li><li><a href="#3">Examples</a></li></ul></div><h2 id="1">Getting started</h2><p>The following folders need to be added to your Matlab Search path (via <tt>addpath</tt>, <tt>pathtool</tt>, etc.):</p><pre class="language-matlab">mcsd/mcsd
+</pre><h2 id="2">Details</h2><p>The following functions are provided:</p><div><ul><li><tt>cells</tt> - designs 1,2 and 3-D cell environments according to a user defined cell radii distribution .</li><li><tt>rwalkfree</tt> - computes the random walk of multiple particles in the absence of barriers.</li><li><tt>rwalk</tt> - generates the random walk of multiple particles in the presence of barriers.</li><li><tt>displacement</tt> - calculates the displacement of the particles in all orthogonal directions.</li><li><tt>measures</tt> - calculates diffusion, kurtosis and skewness values in all orthogonal directions and their compartmental components.</li><li><tt>where</tt> - indicates what particles are inside or outside compartments at a specific time frame/step.</li></ul></div><p>For details about this functions input and output parameters use Matlab help function <tt>help</tt> followed by the name of the function (e.g. <tt>help rwalk</tt>)</p><h2 id="3">Examples</h2><p><b>Example 1</b></p><p>2-dimensional random walk of 3 particles. 1000 steps of step-size 1. All particles start at the origin.</p><pre class="codeinput"><span class="comment">% parameters</span>
+initial_position = zeros(2,3);
+number_of_steps = 1000;
+step_size = 1;
+
+<span class="comment">% generate random walks</span>
+X = rwalkfree(initial_position, number_of_steps, step_size);
+
+<span class="comment">% plot random walks</span>
+plot(X(:,:,1),X(:,:,2));
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_01.png" alt=""> <p><b>Example 2</b></p><p>2-dimensional random walk of 1000 particles. 100 steps of step-size 1. All particles start at the origin and are confined to an elongated.</p><pre class="codeinput"><span class="comment">% parameters; compartments are defined by anonymous functions</span>
+initial_position = zeros(2, 1000);
+number_of_steps = 100;
+step_size = 1;
+cell = @(x, y) sqrt((x / 10) ^ 2 + y ^ 2) &lt; 3;
+
+<span class="comment">% generate random walks</span>
+X = rwalk(initial_position, number_of_steps, step_size, cell);
+
+<span class="comment">% plot random walks</span>
+plot(X(:,:,1),X(:,:,2));
+axis([-20 20 -10 10]);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_02.png" alt=""> <p>Find the displacement distribution:</p><pre class="codeinput"><span class="comment">% calculate the displacement of every particle</span>
+dx = displacement(X);
+
+<span class="comment">% plot displacement distribution</span>
+hist(dx, 20)
+legend(<span class="string">'dx_1'</span>, <span class="string">'dx_2'</span>)
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_03.png" alt=""> <p><b>Example 3</b></p><p>2-dimensional random walk of 1000 particles. 100 steps of step-size 1. All particles start in random positions inside or outside cells.</p><pre class="codeinput"><span class="comment">% parameters; compartments are defined by anonymous functions</span>
+initial_position = randi([-5 5], 2, 1000);
+number_of_steps = 100;
+step_size = 1;
+cell_radii = [4 3 2 2];
+packing_region = [-5 5 -5 5];
+C = cells(cell_radii, packing_region);
+
+<span class="comment">% generate random walks</span>
+X = rwalk(initial_position, number_of_steps, step_size, C);
+
+<span class="comment">% plot the random walk of only 100 particles</span>
+plot(X(:,1:100,1),X(:,1:100,2));
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_04.png" alt=""> <p>Find the displacement distribution for inside and outside particles:</p><pre class="codeinput"><span class="comment">% calculate the displacement of every particle</span>
+dx = displacement(X);
+
+<span class="comment">% find inside and outside particles</span>
+[in, out] = where(X, C, 1);
+
+<span class="comment">% plot displacement distributions</span>
+s1 = subplot(2,2,1);
+hist(dx(in,1))
+title(<span class="string">'dx_{1} inside'</span>)
+s2 = subplot(2,2,2);
+hist(dx(in,2))
+title(<span class="string">'dx_{2} inside'</span>)
+s3 = subplot(2,2,3);
+hist(dx(out,1))
+title(<span class="string">'dx_{1} outside'</span>)
+s4 = subplot(2,2,4);
+hist(dx(out,2))
+title(<span class="string">'dx_{2} outside'</span>)
+axis([s1 s2 s3 s4],[min(min(dx)) max(max(dx)) 0 200])
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_05.png" alt=""> <p><b>Example 4</b></p><p>3-dimensional random walk of 100 particles inside a permeable tube. 1000 steps of step-size 1. All particles start at the origin.</p><pre class="codeinput">clf
+
+<span class="comment">% parameters; compartments are defined by anonymous functions</span>
+initial_position = zeros(3, 100);
+number_of_steps = 1000;
+step_size = 1;
+tube = @(x, y, z) sqrt(x ^ 2 + y ^ 2) &lt; 3;
+crossing_probability = 0.0005;
+
+<span class="comment">% generate random walks</span>
+X = rwalk(initial_position, number_of_steps, step_size, tube, crossing_probability);
+
+<span class="comment">% 3-D plot of random walks</span>
+plot3(X(:,:,1),X(:,:,2),X(:,:,3));
+axis([-10 10 -10 10 min(min(X(:,:,3))) max(max(X(:,:,3)))]);
+</pre><img vspace="5" hspace="5" src="./readmeExtras/README_06.png" alt=""> <p>For any of the examples above you can also calculate the values of diffusion, kurtosis and skewness using the function <tt>measures</tt>. For further details type <tt>help measures</tt> in the command line. Try for yourself!</p><p class="footer"><br><a href="https://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2018a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% |MCSD|: MATLAB/Octave tool for Monte-Carlo simulations of diffusion in biological tissues
+% Author: David N. Sousa
+%
+% MCSD is a simple MATLAB/Octave tool design to simulate diffusion
+% processes in complex environments such as biological tissues.
+%
+%% Getting started
+%
+% The following folders need to be added to your Matlab Search path (via
+% |addpath|, |pathtool|, etc.):
+%
+%   mcsd/mcsd
+%
+%% Details
+%
+% The following functions are provided:
+%
+% * |cells| - designs 1,2 and 3-D cell environments according to a user
+% defined cell radii distribution .
+% * |rwalkfree| - computes the random walk of multiple particles in the
+% absence of barriers.
+% * |rwalk| - generates the random walk of multiple particles in the presence
+% of barriers.
+% * |displacement| - calculates the displacement of the particles in all
+% orthogonal directions.
+% * |measures| - calculates diffusion, kurtosis and skewness values in all
+% orthogonal directions and their compartmental components.
+% * |where| - indicates what particles are inside or outside compartments
+% at a specific time frame/step.
+%
+% For details about this functions input and output parameters use Matlab
+% help function |help| followed by the name of the function (e.g. |help
+% rwalk|)
+%
+%% Examples
+%
+%
+% *Example 1*
+%
+% 2-dimensional random walk of 3 particles. 1000 steps of step-size 1.
+% All particles start at the origin.
+
+% parameters
+initial_position = zeros(2,3);
+number_of_steps = 1000;
+step_size = 1;
+
+% generate random walks
+X = rwalkfree(initial_position, number_of_steps, step_size);
+
+% plot random walks
+plot(X(:,:,1),X(:,:,2));
+
+%%
+% *Example 2*
+%
+% 2-dimensional random walk of 1000 particles. 100 steps of step-size 1.
+% All particles start at the origin and are confined to an elongated.
+
+% parameters; compartments are defined by anonymous functions
+initial_position = zeros(2, 1000);
+number_of_steps = 100;
+step_size = 1;
+cell = @(x, y) sqrt((x / 10) ^ 2 + y ^ 2) < 3;
+
+% generate random walks
+X = rwalk(initial_position, number_of_steps, step_size, cell);
+
+% plot random walks
+plot(X(:,:,1),X(:,:,2));
+axis([-20 20 -10 10]);
+
+%%
+% Find the displacement distribution:
+
+% calculate the displacement of every particle
+dx = displacement(X);
+
+% plot displacement distribution
+hist(dx, 20)
+legend('dx_1', 'dx_2')
+
+%%
+% *Example 3*
+%
+% 2-dimensional random walk of 1000 particles. 100 steps of step-size 1.
+% All particles start in random positions inside or outside cells.
+
+% parameters; compartments are defined by anonymous functions
+initial_position = randi([-5 5], 2, 1000);
+number_of_steps = 100;
+step_size = 1;
+cell_radii = [4 3 2 2];
+packing_region = [-5 5 -5 5];
+C = cells(cell_radii, packing_region);
+
+% generate random walks
+X = rwalk(initial_position, number_of_steps, step_size, C);
+
+% plot the random walk of only 100 particles
+plot(X(:,1:100,1),X(:,1:100,2));
+
+%%
+% Find the displacement distribution for inside and outside particles:
+
+% calculate the displacement of every particle
+dx = displacement(X);
+
+% find inside and outside particles
+[in, out] = where(X, C, 1);
+
+% plot displacement distributions
+s1 = subplot(2,2,1);
+hist(dx(in,1))
+title('dx_{1} inside')
+s2 = subplot(2,2,2);
+hist(dx(in,2))
+title('dx_{2} inside')
+s3 = subplot(2,2,3);
+hist(dx(out,1))
+title('dx_{1} outside')
+s4 = subplot(2,2,4);
+hist(dx(out,2))
+title('dx_{2} outside')
+axis([s1 s2 s3 s4],[min(min(dx)) max(max(dx)) 0 200])
+
+
+%%
+% *Example 4*
+%
+% 3-dimensional random walk of 100 particles inside a permeable tube. 1000  
+% steps of step-size 1. All particles start at the origin.
+
+clf
+
+% parameters; compartments are defined by anonymous functions
+initial_position = zeros(3, 100);
+number_of_steps = 1000;
+step_size = 1;
+tube = @(x, y, z) sqrt(x ^ 2 + y ^ 2) < 3;
+crossing_probability = 0.0005;
+
+% generate random walks
+X = rwalk(initial_position, number_of_steps, step_size, tube, crossing_probability);
+
+% 3-D plot of random walks
+plot3(X(:,:,1),X(:,:,2),X(:,:,3));
+axis([-10 10 -10 10 min(min(X(:,:,3))) max(max(X(:,:,3)))]); 
+
+%%
+% For any of the examples above you can also calculate the values of 
+% diffusion, kurtosis and skewness using the function |measures|. For
+% further details type |help measures| in the command line. Try for
+% yourself!
+##### SOURCE END #####
+--></body></html>
