@@ -5,7 +5,7 @@
 Author: David N. Sousa
 
 
-MCSD is a simple MATLAB/Octave tool design to simulate diffusion processes in complex environments such as biological tissues.
+MCSD is a simple MATLAB/Octave tool designed to simulate diffusion processes in complex environments such as biological tissues.
 
 
 
