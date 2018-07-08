@@ -33,7 +33,7 @@ function [d, k, s] = measures(t, X, varargin)
     dx = displacement(X);
     % measures
     d(1,:) = var(dx) ./ (2 * t);
-    k(1,:) = kurtosis(dx);
+    k(1,:) = kurtosis(dx) - 3;
     s(1,:) = skewness(dx);
     % Compartmental measures
     if numel(varargin) == 1
@@ -41,12 +41,12 @@ function [d, k, s] = measures(t, X, varargin)
         [i, o] = where(X,f,1);
         if ~isempty(i) 
             d(2,:) = var(dx(i,:)) ./ (2 * t);
-            k(2,:) = kurtosis(dx(i,:));
+            k(2,:) = kurtosis(dx(i,:)) - 3;
             s(2,:) = skewness(dx(i,:));
         end
         if ~isempty(o) 
             d(3,:) = var(dx(o,:)) ./ (2 * t);
-            k(3,:) = kurtosis(dx(o,:));
+            k(3,:) = kurtosis(dx(o,:)) - 3;
             s(3,:) = skewness(dx(o,:));
         end
     end   
