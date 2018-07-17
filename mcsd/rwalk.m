@@ -2,20 +2,20 @@ function X = rwalk(p, ns, ss, varargin)
 % RWALK simulates the random walk of multiple particles in a complex
 % environment.
 %
-%   X = RWALK(P, NS, SS) simulates an NS steps random walk of step size SS
-%   for a number of particles equal to the number of columns in P. P is an
-%   array with the initial coordinates of every particle. Each line
-%   corresponding to one dimension.
+%   X = RWALK(POS, NS, SS) simulates an NS steps random walk of step size 
+%   SS for a number of particles equal to the number of columns in POS. POS 
+%   is an array with the initial coordinates of every particle. Each line
+%   referring to one dimension.
 %
 %   X = RWALK(... , F) simulates a random walk in a complex
-%   environment defined by an anonymous function C which specifies
+%   environment defined by an anonymous function F which specifies
 %   compartments.
 % 
 %   X = RWALK(..., F, Prob) includes a parameter Prob to simulate the
 %   permeability, the probability of crossing a barrier (0 to 1).
 %
-%   The return X is an M x N x K array with all the particle's positions 
-%   along their trajectories. M x N x K = NS x number of walkers x number
+%   The return X is an M x N x P array with all the particles positions 
+%   along their trajectories. M x N x P = NS x number of walkers x number
 %   of dimensions.
 %
 %   Examples:
@@ -35,10 +35,10 @@ function X = rwalk(p, ns, ss, varargin)
     % Compute a random walk in a free environment
     X = rwalkfree(p, ns, ss);
     % If any extra parameters, correct random walks with the function provided
-    if numel(varargin) >= 1
+    if nargin >= 4
         % Define the function with the first optional parameter
         f = varargin{1};
-        if numel(varargin) == 2
+        if nargin == 5
           % Define crossing probability with the second optional parameter
           prob = varargin{2};
         else
@@ -48,20 +48,22 @@ function X = rwalk(p, ns, ss, varargin)
         % and are allowd to do so. If not, correct the random walks from
         % the crossing step on
         for j = 1:nw
-            for i = 2:ns
-                % lp - last position as cell vector 
-                lp = num2cell(squeeze(X(i-1, j, :)));
-                % cp - current position as cell vector
+            for i = 1:ns
+                % cp - current position as cell vector 
                 cp = num2cell(squeeze(X(i, j, :)));
+                % np - next position as cell vector
+                np = num2cell(squeeze(X(i+1, j, :)));
                 % Evaluate if crossing is allowed by generating a random number 
                 % between 0 and 1 and comparing with the crossing probability
                 % If it is bigger, crossing is not allowed
-                % Pass ip and cp as arguments to f
+                % Pass np and cp as arguments to f
                 % If last and current positions are at different regions the 
                 % particle is trying to cross. The condition evaluates to TRUE
-                if rand >= prob && f(cp{:}) ~= f(lp{:})
+                rnd = rand;
+                while rnd >= prob && f(np{:}) ~= f(cp{:})
                     % Correct random walk
-                    X(i:end, j, :) = rwalkfree(squeeze(X(i-1, j, :)),ns + 1 - i, ss);
+                    X(i:end, j, :) = rwalkfree(squeeze(X(i, j, :)),ns + 1 - i, ss);
+                    np = num2cell(squeeze(X(i+1, j, :)));
                 end
             end
         end

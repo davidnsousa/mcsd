@@ -40,10 +40,11 @@ The following functions are provided:
   - `rwalkfree` - computes the random walk of multiple particles in the absence of barriers.
   - `rwalk` - generates the random walk of multiple particles in the presence of barriers.
   - `displacement` - calculates the displacement of the particles in all orthogonal directions.
-  - `measures` - calculates diffusion, kurtosis and skewness values in all orthogonal directions and their compartmental components.
+  - `cmeasures` - calculates a user-defined measure of the particles' displacement distribution in all cartesian directions, including compartmental components.
   - `where` - indicates what particles are inside or outside compartments at a specific time frame/step.
+  - `fanisotropy` - calculates the fractional anisotropy of diffusion.
 
-For details about this functions input and output parameters use Matlab help function `help` followed by the name of the function (e.g. `help rwalk`)
+For details about these functions input and output parameters use the Matlab help function `help` followed by the name of the function (e.g. `help rwalk`). In MATLAB the Statistics and Machine Learning Toolbox is required for a complete functioning of this package.
 
 
 
@@ -53,7 +54,7 @@ For details about this functions input and output parameters use Matlab help fun
 **Example 1**
 
 
-2-dimensional random walk of 3 particles. 1000 steps of step-size 1. All particles start at the origin.
+2-dimensional random walk of 3 particles. 1000 steps of step-size 1. All particles start at the origin. The output plot shows all particles' trajectories represent by a different colors.
 
 
 
@@ -85,7 +86,7 @@ plot(X(:,:,1),X(:,:,2));
 initial_position = zeros(2, 1000);
 number_of_steps = 100;
 step_size = 1;
-cell = @(x, y) sqrt((x / 10) ^ 2 + y ^ 2) < 3;
+cell = @(x, y) sqrt((x / 10) ^ 2 + y ^ 2) &lt; 3;
 
 % generate random walks
 X = rwalk(initial_position, number_of_steps, step_size, cell);
@@ -98,7 +99,7 @@ axis([-20 20 -10 10]);
 
 ![](./readmeExtras/README_02.png)
 
-Find the displacement distribution:
+The following calculates and plots the histogram of the particles' displacement distributions. dx1 and dx2 are the horizontal and vertical components of the displacement.
 
 
 
@@ -184,21 +185,77 @@ clf
 initial_position = zeros(3, 100);
 number_of_steps = 1000;
 step_size = 1;
-tube = @(x, y, z) sqrt(x ^ 2 + y ^ 2) < 3;
+tube = @(x, y, z) sqrt(x ^ 2 + y ^ 2) &lt; 3;
 crossing_probability = 0.0005;
 
 % generate random walks
 X = rwalk(initial_position, number_of_steps, step_size, tube, crossing_probability);
 
 % 3-D plot of random walks
-plot3(X(:,:,1),X(:,:,2),X(:,:,3));
+plot3(X(:,:,1), X(:,:,2), X(:,:,3));
 axis([-10 10 -10 10 min(min(X(:,:,3))) max(max(X(:,:,3)))]);
 ```
 
 
 ![](./readmeExtras/README_06.png)
 
-For any of the examples above you can also calculate the values of diffusion, kurtosis and skewness using the function `measures`. For further details type `help measures` in the command line. Try for yourself!
+**Example 5**
+
+
+Consider the more realistic example of water diffusion in the nervous system, more specifically along axonal membranes. To create such an environment we use the `cells` function to generate a 2-dimensional cell environment and add one degree of freedom to the ouput. Consider only four cells as previously and a normal distribution of the cell radii with mean 0.005 mm and standard deviation 0.0025 mm. We use the MATLAB/Octave built-in function `normrand`. The cells are packed in a square region of side length `l`. At 37&ordm; temperature the coefficient of free diffusion in water is the specified value `D` (see the code below). The diffusion time interval `t` is typical of an MRI scan, and the random walk time-step is given by `dt`. The random walk is t/dt steps long, and and the step size is calculated from the mean square displacement formula derived from the Einstein's PDF in three dimensions (see the code below). The following simulates the 3D random walk on 100 particles in the specified conditions, and calculates all diffusion components in intracellular and extracellular compartments. The first line of the output matrix refers to the horizontal and vertical components of diffusion, and the second and third lines refer to intracellular and extracellular diffusion values respectively. Finally we compute the diffusion tensor and fractional anisotropy.
+
+
+
+```matlab
+% parameters; compartments are defined by anonymous functions
+D = 0.003;
+t = 0.026;
+dt = 0.000025;
+l = 0.02;
+initial_position = rand(3, 100) * l;
+number_of_steps = t / dt;
+step_size = sqrt(6 * D * dt);
+C = cells(normrnd(0.005, 0.0025, 1, 4), [0 l 0 l]);
+axons = @(x, y, z) C(x,y);
+
+% generate random walks
+X = rwalk(initial_position, number_of_steps , step_size, axons);
+
+% calculate diffusion
+diffusion = @(dx) var(dx) / (2 * t);
+D = cmeasures(diffusion, X, axons)
+
+%Diffusion tensor and fractional anisotropy
+dx = displacement(X);
+DT = cov(dx) / (2 * t)
+FA = fanisotropy(DT)
+```
+
+
+
+
+```
+
+D =
+
+    0.0010    0.0017    0.0029
+    0.0003    0.0003    0.0003
+    0.0018    0.0018    0.0018
+
+
+DT =
+
+    0.0010   -0.0000   -0.0000
+   -0.0000    0.0017   -0.0001
+   -0.0000   -0.0001    0.0029
+
+
+FA =
+
+    0.4628
+
+
+```
 
 
 

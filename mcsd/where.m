@@ -1,9 +1,9 @@
 function [in, out] = where(p, f, step)
 % WHERE indicates what particles are inside or outside compartments at a
-% specific frame/step.
+% specific time frame/step.
 %
-%   [IN, OUT] = WHERE(X, F, S) takes an M x N x K array X with all the 
-%   particle's positions along their trajectories, an anonymous function F
+%   [IN, OUT] = WHERE(X, F, S) takes an M x N x P array X with all the 
+%   particles' positions along their trajectories, an anonymous function F
 %   specifying compartments and a step number S.
 %
 %   The return IN is a vector of the indexes of particles inside

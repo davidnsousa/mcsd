@@ -1,13 +1,13 @@
 function dx = displacement(X)
 % DISPLACEMENT calculates the displacement of all particles in all
-% orthogonal directions.
+% cartesian directions.
 %
-%   DX = DISPLACEMENT(X) takes an M x N x K array X with all the 
-%   particle's positions along their trajectories and calculates the
+%   DX = DISPLACEMENT(X) takes an M x N x P array X with all the 
+%   particles' poitions along their trajectories and calculates the
 %   displacement of the particles.
 %
-%   The return DX is an M-by-N of the particle's displacements in all
-%   orthogonal directions (columns).
+%   The return DX is an M-by-N of the particles' displacements in all
+%   cartesian directions (columns).
 %
 %   Examples:
 %
