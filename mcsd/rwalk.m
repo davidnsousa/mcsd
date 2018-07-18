@@ -57,7 +57,7 @@ function X = rwalk(p, ns, ss, varargin)
                 % between 0 and 1 and comparing with the crossing probability
                 % If it is bigger, crossing is not allowed
                 % Pass np and cp as arguments to f
-                % If last and current positions are at different regions the 
+                % If next and current positions are at different regions the 
                 % particle is trying to cross. The condition evaluates to TRUE
                 rnd = rand;
                 while rnd >= prob && f(np{:}) ~= f(cp{:})

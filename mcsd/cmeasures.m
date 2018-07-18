@@ -39,10 +39,10 @@ function m = cmeasures(measure, X, varargin)
         % retrieve indexes of inside (i) and outside (o) particles
         [i, o] = where(X,f,1);
         if ~isempty(i) 
-            m(2,:) = measure(dx(i));
+            m(2,:) = measure(dx(i,:));
         end
         if ~isempty(o) 
-            m(3,:) = measure(dx(o));
+            m(3,:) = measure(dx(o,:));
         end
     end   
 end
