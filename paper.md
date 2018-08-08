@@ -15,7 +15,7 @@ affiliations:
  - name: William James Center for Research, ISPA - Instituto Universitário
    index: 1
  - name: Instituto de Biofísica e Engenharia Biomédica, Faculdade de Ciências da Universidade de Lisboa
-   index: 1
+   index: 2
 date: 8 August 2018
 bibliography: paper.bib
 ---
