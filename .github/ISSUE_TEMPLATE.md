@@ -38,3 +38,9 @@
 **Additional Information:**
 
 <!--- Any additional information that might be relevant to reproduce the problem -->
+
+### Feature request
+
+<!--- Delete this section if not applicable -->
+
+<!--- Description -->
