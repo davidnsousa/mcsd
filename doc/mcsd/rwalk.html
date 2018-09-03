@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of rwalk</title>
+  <meta name="keywords" content="rwalk">
+  <meta name="description" content="RWALK simulates the random walk of multiple particles in a complex">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">mcsd</a> &gt; rwalk.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mcsd&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>rwalk
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>RWALK simulates the random walk of multiple particles in a complex</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function X = rwalk(p, ns, ss, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> RWALK simulates the random walk of multiple particles in a complex
+ environment.
+
+   X = RWALK(POS, NS, SS) simulates an NS steps random walk of step size 
+   SS for a number of particles equal to the number of columns in POS. POS 
+   is an array with the initial coordinates of every particle. Each line
+   referring to one dimension.
+
+   X = RWALK(... , F) simulates a random walk in a complex
+   environment defined by an anonymous function F which specifies
+   compartments.
+ 
+   X = RWALK(..., F, Prob) includes a parameter Prob to simulate the
+   permeability, the probability of crossing a barrier (0 to 1).
+
+   The return X is an M x N x P array with all the particles positions 
+   along their trajectories. M x N x P = NS x number of walkers x number
+   of dimensions.
+
+   Examples:
+
+        F1 = @(x) (x &gt; - 10) .* (x &lt; 10);
+        F2 = @(x, y) sqrt(x ^ 2 + y ^ 2) &lt; 10;
+        F3 = @(x, y, z) sqrt(x ^ 2 + y ^ 2 + z ^ 2) &lt; 10;
+        X1 = rwalk(zeros(1, 100), 100, 1, F1);
+        X2 = rwalk(zeros(2, 100), 100, 1, F2, 0.1);
+        X3 = rwalk(zeros(3, 100), 1000, 1, F3);
+
+   This function is part of the MCSD package. For more information visit:
+   https://github.com/davidnsousa/mcsd</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="rwalkfree.html" class="code" title="function X = rwalkfree(p, ns, ss)">rwalkfree</a>	RWALKFREE simulates the random walk of multiple particles.</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function X = rwalk(p, ns, ss, varargin)</a>
+0002 <span class="comment">% RWALK simulates the random walk of multiple particles in a complex</span>
+0003 <span class="comment">% environment.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   X = RWALK(POS, NS, SS) simulates an NS steps random walk of step size</span>
+0006 <span class="comment">%   SS for a number of particles equal to the number of columns in POS. POS</span>
+0007 <span class="comment">%   is an array with the initial coordinates of every particle. Each line</span>
+0008 <span class="comment">%   referring to one dimension.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%   X = RWALK(... , F) simulates a random walk in a complex</span>
+0011 <span class="comment">%   environment defined by an anonymous function F which specifies</span>
+0012 <span class="comment">%   compartments.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   X = RWALK(..., F, Prob) includes a parameter Prob to simulate the</span>
+0015 <span class="comment">%   permeability, the probability of crossing a barrier (0 to 1).</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%   The return X is an M x N x P array with all the particles positions</span>
+0018 <span class="comment">%   along their trajectories. M x N x P = NS x number of walkers x number</span>
+0019 <span class="comment">%   of dimensions.</span>
+0020 <span class="comment">%</span>
+0021 <span class="comment">%   Examples:</span>
+0022 <span class="comment">%</span>
+0023 <span class="comment">%        F1 = @(x) (x &gt; - 10) .* (x &lt; 10);</span>
+0024 <span class="comment">%        F2 = @(x, y) sqrt(x ^ 2 + y ^ 2) &lt; 10;</span>
+0025 <span class="comment">%        F3 = @(x, y, z) sqrt(x ^ 2 + y ^ 2 + z ^ 2) &lt; 10;</span>
+0026 <span class="comment">%        X1 = rwalk(zeros(1, 100), 100, 1, F1);</span>
+0027 <span class="comment">%        X2 = rwalk(zeros(2, 100), 100, 1, F2, 0.1);</span>
+0028 <span class="comment">%        X3 = rwalk(zeros(3, 100), 1000, 1, F3);</span>
+0029 <span class="comment">%</span>
+0030 <span class="comment">%   This function is part of the MCSD package. For more information visit:</span>
+0031 <span class="comment">%   https://github.com/davidnsousa/mcsd</span>
+0032 
+0033     <span class="comment">% dim - # of dimensions/coordinates; nw - # of walkers</span>
+0034     [~, nw] = size(p);
+0035     <span class="comment">% Compute a random walk in a free environment</span>
+0036     X = <a href="rwalkfree.html" class="code" title="function X = rwalkfree(p, ns, ss)">rwalkfree</a>(p, ns, ss);
+0037     <span class="comment">% If any extra parameters, correct random walks with the function provided</span>
+0038     <span class="keyword">if</span> nargin &gt;= 4
+0039         <span class="comment">% Define the function with the first optional parameter</span>
+0040         f = varargin{1};
+0041         <span class="keyword">if</span> nargin == 5
+0042           <span class="comment">% Define crossing probability with the second optional parameter</span>
+0043           prob = varargin{2};
+0044         <span class="keyword">else</span>
+0045           prob = 0;
+0046         <span class="keyword">end</span>
+0047         <span class="comment">% Loop over walkers and steps and check whether they cross any barriers</span>
+0048         <span class="comment">% and are allowd to do so. If not, correct the random walks from</span>
+0049         <span class="comment">% the crossing step on</span>
+0050         <span class="keyword">for</span> j = 1:nw
+0051             <span class="keyword">for</span> i = 1:ns
+0052                 <span class="comment">% cp - current position as cell vector</span>
+0053                 cp = num2cell(squeeze(X(i, j, :)));
+0054                 <span class="comment">% np - next position as cell vector</span>
+0055                 np = num2cell(squeeze(X(i+1, j, :)));
+0056                 <span class="comment">% Evaluate if crossing is allowed by generating a random number</span>
+0057                 <span class="comment">% between 0 and 1 and comparing with the crossing probability</span>
+0058                 <span class="comment">% If it is bigger, crossing is not allowed</span>
+0059                 <span class="comment">% Pass np and cp as arguments to f</span>
+0060                 <span class="comment">% If next and current positions are at different regions the</span>
+0061                 <span class="comment">% particle is trying to cross. The condition evaluates to TRUE</span>
+0062                 rnd = rand;
+0063                 <span class="keyword">while</span> rnd &gt;= prob &amp;&amp; f(np{:}) ~= f(cp{:})
+0064                     <span class="comment">% Correct random walk</span>
+0065                     X(i:<span class="keyword">end</span>, j, :) = <a href="rwalkfree.html" class="code" title="function X = rwalkfree(p, ns, ss)">rwalkfree</a>(squeeze(X(i, j, :)),ns + 1 - i, ss);
+0066                     np = num2cell(squeeze(X(i+1, j, :)));
+0067                 <span class="keyword">end</span>
+0068             <span class="keyword">end</span>
+0069         <span class="keyword">end</span>
+0070     <span class="keyword">end</span>  
+0071 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 03-Sep-2018 17:48:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

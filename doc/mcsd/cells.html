@@ -1,0 +1,122 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cells</title>
+  <meta name="keywords" content="cells">
+  <meta name="description" content="CELLS creates a 1, 2 or 3-D environment of randomly distributed cells.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">mcsd</a> &gt; cells.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mcsd&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>cells
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CELLS creates a 1, 2 or 3-D environment of randomly distributed cells.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function [C, vf] = cells(r, d) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CELLS creates a 1, 2 or 3-D environment of randomly distributed cells.
+
+   [C, V] = CELLS(R, D) takes a vector R containing the cell radii and a 
+   vector D specifying the dimensions of the region to pack the cells. 
+   D = [xmin xmax ymin ymax zmin zmax]
+
+   The return C is an anonymous function specifying intracellular regions
+   with the respective cell identification numbers. Outside cells C = 0.
+   V is the resulting intracellular fraction of the region specified by D.
+
+   Examples:
+
+       [C, vf] = cells([3 3], [0 10]);
+       [C, vf] = cells(ones(1,5)*2, [-5 5 -5 5]);
+
+   This function is part of the MCSD package. For more information visit:
+   https://github.com/davidnsousa/mcsd</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function [C, vf] = cells(r, d)</a>
+0002 <span class="comment">% CELLS creates a 1, 2 or 3-D environment of randomly distributed cells.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   [C, V] = CELLS(R, D) takes a vector R containing the cell radii and a</span>
+0005 <span class="comment">%   vector D specifying the dimensions of the region to pack the cells.</span>
+0006 <span class="comment">%   D = [xmin xmax ymin ymax zmin zmax]</span>
+0007 <span class="comment">%</span>
+0008 <span class="comment">%   The return C is an anonymous function specifying intracellular regions</span>
+0009 <span class="comment">%   with the respective cell identification numbers. Outside cells C = 0.</span>
+0010 <span class="comment">%   V is the resulting intracellular fraction of the region specified by D.</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   Examples:</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%       [C, vf] = cells([3 3], [0 10]);</span>
+0015 <span class="comment">%       [C, vf] = cells(ones(1,5)*2, [-5 5 -5 5]);</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%   This function is part of the MCSD package. For more information visit:</span>
+0018 <span class="comment">%   https://github.com/davidnsousa/mcsd</span>
+0019 
+0020     dim = length(d) / 2;
+0021     vol = prod(d(2:2:end) - d(1:2:end-1));
+0022     <span class="comment">% C is the anonymous function of cells</span>
+0023     <span class="comment">% initialized to 0, meaning that everywhere is extracellular space</span>
+0024     <span class="comment">% C will be used in the while cycle to check whether new added cells, distant</span>
+0025     <span class="comment">% from each other cell by r2, overlap any existing cells. Non-overlapping cells</span>
+0026     <span class="comment">% will be added to C. x, y, z are cartesian coordinates</span>
+0027     C = @(x, y, z, r2) 0;
+0028     <span class="comment">% Loop over the radii vector in descent order to generate a space distribution</span>
+0029     <span class="comment">% of non-overlapping randomly positioned cells</span>
+0030     r = sort(r, <span class="string">'descend'</span>);
+0031     <span class="keyword">for</span> i = 1:length(r)
+0032         <span class="comment">% Generate random coordinates inside the region defined by d</span>
+0033         d(end + 1:6) = 0;
+0034         o = (d(2:2:end) - d(1:2:end-1)) .* rand(1,3) + d(1:2:end-1);
+0035         <span class="comment">% While the new cell with coordinates o and radius r overlaps others,</span>
+0036         <span class="comment">% generate new coordinates</span>
+0037         <span class="keyword">while</span> C(o(1), o(2), o(3), r(i)) ~= 0
+0038             o = (d(2:2:end) - d(1:2:end-1)) .* rand(1,3) + d(1:2:end-1);
+0039         <span class="keyword">end</span>
+0040         <span class="comment">% Create anonymous function for the present cell and combine it with C</span>
+0041         c = @(x, y, z, r2) <span class="keyword">...</span><span class="comment"> </span>
+0042         (sqrt((x - o(1)) ^ 2 + (y - o(2)) ^ 2 + (z - o(3)) ^ 2) &lt; r(i) + r2 ).* i;
+0043         C = @(x, y, z, r2) C(x, y, z, r2) + c(x, y, z, r2);
+0044     <span class="keyword">end</span>
+0045     <span class="comment">% r2 is not relevant anymore. Set it to 0.</span>
+0046     C = @(x, y, z) C(x, y, z, 0);
+0047     <span class="comment">% Depending on dim, select the relevant function parameters for the output C</span>
+0048     <span class="keyword">if</span> dim == 1
+0049         C = @(x) C(x, 0, 0);  
+0050         <span class="comment">% Calculate intracellular volume fraction</span>
+0051         vf = sum(2 * r) / vol;
+0052     <span class="keyword">elseif</span> dim == 2 
+0053         C = @(x, y) C(x, y, 0); 
+0054         vf = sum(pi * r .^ 2) / vol; 
+0055     <span class="keyword">elseif</span> dim == 3
+0056         C = @(x, y, z) C(x, y, z); 
+0057         vf = sum((4 / 3) * pi * r .^ 3) / vol;
+0058     <span class="keyword">end</span>
+0059 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 03-Sep-2018 17:48:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

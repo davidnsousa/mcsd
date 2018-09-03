@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of cmeasures</title>
+  <meta name="keywords" content="cmeasures">
+  <meta name="description" content="CMEASURES calculates all compartmental components of a specific measure">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">mcsd</a> &gt; cmeasures.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mcsd&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>cmeasures
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>CMEASURES calculates all compartmental components of a specific measure</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function m = cmeasures(measure, X, varargin) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> CMEASURES calculates all compartmental components of a specific measure
+ in all cartesian directions.
+
+   M = CMEASURES(measure, X) takes a function handle for a specific
+   measure, and an M x N x P array X with all the particles' positions
+   along their trajectories, and applies the specified measure to the
+   particles' displacement distribution in every cartesian direction.
+
+   M = CMEASURES(... , F) includes also a function handle for F, a
+   function specifying compartments, and calculates the same measure for
+   each compartment.
+
+   The return M is an array with each column referring to one cartesian
+   direction. If F is given, the second and third lines correspond to
+   inside and outside measures respectively.
+
+   Examples:
+       
+       F = @(x, y) sqrt(x ^ 2 + y ^ 2) &lt; 3;
+       X = rwalk(randi([-10 10], 2, 100), 100, 1, F);
+       M = measures(@var, X, F)
+
+   See also <a href="rwalk.html" class="code" title="function X = rwalk(p, ns, ss, varargin)">RWALK</a>
+
+   This function is part of the MCSD package. For more information visit:
+   https://github.com/davidnsousa/mcsd</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="displacement.html" class="code" title="function dx = displacement(X)">displacement</a>	DISPLACEMENT calculates the displacement of all particles in all</li><li><a href="where.html" class="code" title="function [in, out] = where(p, f, step)">where</a>	WHERE indicates what particles are inside or outside compartments at a</li></ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function m = cmeasures(measure, X, varargin)</a>
+0002 <span class="comment">% CMEASURES calculates all compartmental components of a specific measure</span>
+0003 <span class="comment">% in all cartesian directions.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   M = CMEASURES(measure, X) takes a function handle for a specific</span>
+0006 <span class="comment">%   measure, and an M x N x P array X with all the particles' positions</span>
+0007 <span class="comment">%   along their trajectories, and applies the specified measure to the</span>
+0008 <span class="comment">%   particles' displacement distribution in every cartesian direction.</span>
+0009 <span class="comment">%</span>
+0010 <span class="comment">%   M = CMEASURES(... , F) includes also a function handle for F, a</span>
+0011 <span class="comment">%   function specifying compartments, and calculates the same measure for</span>
+0012 <span class="comment">%   each compartment.</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%   The return M is an array with each column referring to one cartesian</span>
+0015 <span class="comment">%   direction. If F is given, the second and third lines correspond to</span>
+0016 <span class="comment">%   inside and outside measures respectively.</span>
+0017 <span class="comment">%</span>
+0018 <span class="comment">%   Examples:</span>
+0019 <span class="comment">%</span>
+0020 <span class="comment">%       F = @(x, y) sqrt(x ^ 2 + y ^ 2) &lt; 3;</span>
+0021 <span class="comment">%       X = rwalk(randi([-10 10], 2, 100), 100, 1, F);</span>
+0022 <span class="comment">%       M = measures(@var, X, F)</span>
+0023 <span class="comment">%</span>
+0024 <span class="comment">%   See also RWALK</span>
+0025 <span class="comment">%</span>
+0026 <span class="comment">%   This function is part of the MCSD package. For more information visit:</span>
+0027 <span class="comment">%   https://github.com/davidnsousa/mcsd</span>
+0028 
+0029     <span class="comment">% dim - # of dimensions/coordinates</span>
+0030     [~, ~, dim] = size(X);
+0031     m  = zeros(1,dim);
+0032     <span class="comment">% calculate displacements</span>
+0033     dx = <a href="displacement.html" class="code" title="function dx = displacement(X)">displacement</a>(X);
+0034     <span class="comment">% total measure</span>
+0035     m(1,:) = measure(dx);
+0036     <span class="comment">% Compartmental measures</span>
+0037     <span class="keyword">if</span> nargin == 3
+0038         f = varargin{1};
+0039         <span class="comment">% retrieve indexes of inside (i) and outside (o) particles</span>
+0040         [i, o] = <a href="where.html" class="code" title="function [in, out] = where(p, f, step)">where</a>(X,f,1);
+0041         <span class="keyword">if</span> ~isempty(i) 
+0042             m(2,:) = measure(dx(i,:));
+0043         <span class="keyword">end</span>
+0044         <span class="keyword">if</span> ~isempty(o) 
+0045             m(3,:) = measure(dx(o,:));
+0046         <span class="keyword">end</span>
+0047     <span class="keyword">end</span>   
+0048 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 03-Sep-2018 17:48:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

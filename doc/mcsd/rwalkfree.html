@@ -1,0 +1,98 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of rwalkfree</title>
+  <meta name="keywords" content="rwalkfree">
+  <meta name="description" content="RWALKFREE simulates the random walk of multiple particles.">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">mcsd</a> &gt; rwalkfree.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mcsd&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>rwalkfree
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>RWALKFREE simulates the random walk of multiple particles.</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function X = rwalkfree(p, ns, ss) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> RWALKFREE simulates the random walk of multiple particles.
+
+   X = RWALK(POS, NS, SS) simulates an NS steps random walk of step size 
+   SS for a number of particles equal to the number of columns in POS. POS 
+   is an array with the initial coordinates of every particle. Each line
+   referring to one dimension.
+
+   The return X is an M x N x P array with all the particles' positions 
+   along their trajectories. M x N x P = NS x number of walkers x number
+   of dimensions.
+
+   Examples:
+
+     X = rwalkfree([0 0],100,1);
+     X = rwalkfree(zeros(2, 4),100,1);
+     X = rwalkfree(randi(10, 3, 10),1000,1);
+
+   This function is part of the MCSD package. For more information visit:
+   https://github.com/davidnsousa/mcsd</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="rwalk.html" class="code" title="function X = rwalk(p, ns, ss, varargin)">rwalk</a>	RWALK simulates the random walk of multiple particles in a complex</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function X = rwalkfree(p, ns, ss)</a>
+0002 <span class="comment">% RWALKFREE simulates the random walk of multiple particles.</span>
+0003 <span class="comment">%</span>
+0004 <span class="comment">%   X = RWALK(POS, NS, SS) simulates an NS steps random walk of step size</span>
+0005 <span class="comment">%   SS for a number of particles equal to the number of columns in POS. POS</span>
+0006 <span class="comment">%   is an array with the initial coordinates of every particle. Each line</span>
+0007 <span class="comment">%   referring to one dimension.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   The return X is an M x N x P array with all the particles' positions</span>
+0010 <span class="comment">%   along their trajectories. M x N x P = NS x number of walkers x number</span>
+0011 <span class="comment">%   of dimensions.</span>
+0012 <span class="comment">%</span>
+0013 <span class="comment">%   Examples:</span>
+0014 <span class="comment">%</span>
+0015 <span class="comment">%     X = rwalkfree([0 0],100,1);</span>
+0016 <span class="comment">%     X = rwalkfree(zeros(2, 4),100,1);</span>
+0017 <span class="comment">%     X = rwalkfree(randi(10, 3, 10),1000,1);</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   This function is part of the MCSD package. For more information visit:</span>
+0020 <span class="comment">%   https://github.com/davidnsousa/mcsd</span>
+0021   
+0022     <span class="comment">% dim - # of dimensions/coordinates; nw - # of walkers</span>
+0023     [dim, nw] = size(p);
+0024     <span class="comment">% generate vectors of magnitude ss in random directions for each step</span>
+0025     <span class="comment">% of each walker</span>
+0026     v = rand(ns,nw,dim) * 2 -1;
+0027     v = (v./sqrt(dot(v,v,3))) * ss;
+0028     <span class="comment">% reshape initial positions' matrix to concatenate with all vector</span>
+0029     <span class="comment">% components of the random walk trajectories</span>
+0030     p = reshape(p,[1 nw dim]);
+0031     <span class="comment">% cumulative sum of positions and vector components</span>
+0032     X = cumsum(cat(1,p,v));
+0033 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 03-Sep-2018 17:48:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>

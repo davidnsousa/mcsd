@@ -1,0 +1,90 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+                "http://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+  <title>Description of displacement</title>
+  <meta name="keywords" content="displacement">
+  <meta name="description" content="DISPLACEMENT calculates the displacement of all particles in all">
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+  <meta name="generator" content="m2html v1.5 &copy; 2003-2005 Guillaume Flandin">
+  <meta name="robots" content="index, follow">
+  <link type="text/css" rel="stylesheet" href="../m2html.css">
+</head>
+<body>
+<a name="_top"></a>
+<div><a href="../index.html">Home</a> &gt;  <a href="index.html">mcsd</a> &gt; displacement.m</div>
+
+<!--<table width="100%"><tr><td align="left"><a href="../index.html"><img alt="<" border="0" src="../left.png">&nbsp;Master index</a></td>
+<td align="right"><a href="index.html">Index for mcsd&nbsp;<img alt=">" border="0" src="../right.png"></a></td></tr></table>-->
+
+<h1>displacement
+</h1>
+
+<h2><a name="_name"></a>PURPOSE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>DISPLACEMENT calculates the displacement of all particles in all</strong></div>
+
+<h2><a name="_synopsis"></a>SYNOPSIS <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="box"><strong>function dx = displacement(X) </strong></div>
+
+<h2><a name="_description"></a>DESCRIPTION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre class="comment"> DISPLACEMENT calculates the displacement of all particles in all
+ cartesian directions.
+
+   DX = DISPLACEMENT(X) takes an M x N x P array X with all the 
+   particles' poitions along their trajectories and calculates the
+   displacement of the particles.
+
+   The return DX is an M-by-N of the particles' displacements in all
+   cartesian directions (columns).
+
+   Examples:
+
+       X = rwalk(zeros(2, 100), 100, 1);
+       DX = displacement(X);
+
+   See also <a href="rwalk.html" class="code" title="function X = rwalk(p, ns, ss, varargin)">RWALK</a>
+
+   This function is part of the MCSD package. For more information visit:
+   https://github.com/davidnsousa/mcsd</pre></div>
+
+<!-- crossreference -->
+<h2><a name="_cross"></a>CROSS-REFERENCE INFORMATION <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+This function calls:
+<ul style="list-style-image:url(../matlabicon.gif)">
+</ul>
+This function is called by:
+<ul style="list-style-image:url(../matlabicon.gif)">
+<li><a href="cmeasures.html" class="code" title="function m = cmeasures(measure, X, varargin)">cmeasures</a>	CMEASURES calculates all compartmental components of a specific measure</li></ul>
+<!-- crossreference -->
+
+
+
+<h2><a name="_source"></a>SOURCE CODE <a href="#_top"><img alt="^" border="0" src="../up.png"></a></h2>
+<div class="fragment"><pre>0001 <a name="_sub0" href="#_subfunctions" class="code">function dx = displacement(X)</a>
+0002 <span class="comment">% DISPLACEMENT calculates the displacement of all particles in all</span>
+0003 <span class="comment">% cartesian directions.</span>
+0004 <span class="comment">%</span>
+0005 <span class="comment">%   DX = DISPLACEMENT(X) takes an M x N x P array X with all the</span>
+0006 <span class="comment">%   particles' poitions along their trajectories and calculates the</span>
+0007 <span class="comment">%   displacement of the particles.</span>
+0008 <span class="comment">%</span>
+0009 <span class="comment">%   The return DX is an M-by-N of the particles' displacements in all</span>
+0010 <span class="comment">%   cartesian directions (columns).</span>
+0011 <span class="comment">%</span>
+0012 <span class="comment">%   Examples:</span>
+0013 <span class="comment">%</span>
+0014 <span class="comment">%       X = rwalk(zeros(2, 100), 100, 1);</span>
+0015 <span class="comment">%       DX = displacement(X);</span>
+0016 <span class="comment">%</span>
+0017 <span class="comment">%   See also RWALK</span>
+0018 <span class="comment">%</span>
+0019 <span class="comment">%   This function is part of the MCSD package. For more information visit:</span>
+0020 <span class="comment">%   https://github.com/davidnsousa/mcsd</span>
+0021 
+0022     <span class="comment">% nw - # of walkers; dim - # of dimensions/coordinates</span>
+0023     [~, nw, dim] = size(X);
+0024     dx = reshape(X(<span class="keyword">end</span>,:,:)-X(1,:,:),[nw dim]); 
+0025 <span class="keyword">end</span></pre></div>
+<hr><address>Generated on Mon 03-Sep-2018 17:48:45 by <strong><a href="http://www.artefact.tk/software/matlab/m2html/" title="Matlab Documentation in HTML">m2html</a></strong> &copy; 2005</address>
+</body>
+</html>
