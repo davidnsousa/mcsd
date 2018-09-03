@@ -22,11 +22,11 @@ function [C, vf] = cells(r, d)
     % C is the anonymous function of cells
     % initialized to 0, meaning that everywhere is extracellular space
     % C will be used in the while cycle to check whether new added cells, distant
-    % from each other cell by r2, overlap any existing cells. Non-overlaping cells
+    % from each other cell by r2, overlap any existing cells. Non-overlapping cells
     % will be added to C. x, y, z are cartesian coordinates
     C = @(x, y, z, r2) 0;
     % Loop over the radii vector in descent order to generate a space distribution
-    % of non-overlaping randomly positioned cells
+    % of non-overlapping randomly positioned cells
     r = sort(r, 'descend');
     for i = 1:length(r)
         % Generate random coordinates inside the region defined by d

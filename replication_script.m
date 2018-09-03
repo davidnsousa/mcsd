@@ -73,7 +73,7 @@ ylabel("distance (# steps)")
 zlabel("distance (# steps)")
 axis([-10 10 -10 10 min(min(X(:,:,3))) max(max(X(:,:,3)))]);
 
-% Example of combined anonymous functions representing non overlaping 
+% Example of combined anonymous functions representing non overlapping 
 % circles, each identified by a number to which the combined function 
 % evaluates if (x,y) falls inside the region specified by the combination 
 % of logical expressions. Outside, the function evaluates to 0.

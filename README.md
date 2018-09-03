@@ -16,6 +16,7 @@ MCSD is a simple MATLAB/Octave tool designed to simulate diffusion processes in 
 - Getting started        
 - Details        
 - Examples
+- Contributing
 
 ## Getting started
 
@@ -47,7 +48,7 @@ The following functions are provided:
 
 For details about these functions input and output parameters use the Matlab help function `help` followed by the name of the function (e.g. `help rwalk`). In MATLAB the Statistics and Machine Learning Toolbox is required for a complete functioning of this package.
 
-
+A tutorial and replication script (in MATLAB) for the tutorial can be found at the MCSD github repository.
 
 ## Examples
 
@@ -203,7 +204,7 @@ axis([-10 10 -10 10 min(min(X(:,:,3))) max(max(X(:,:,3)))]);
 **Example 5**
 
 
-Consider the more realistic example of water diffusion in the nervous system, more specifically along axonal membranes. To create such an environment we use the `cells` function to generate a 2-dimensional cell environment and add one degree of freedom to the ouput. Consider only four cells as previously and a normal distribution of the cell radii with mean 0.005 mm and standard deviation 0.0025 mm. We use the MATLAB/Octave built-in function `normrand`. The cells are packed in a square region of side length `l`. At 37&ordm; temperature the coefficient of free diffusion in water is the specified value `D` (see the code below). The diffusion time interval `t` is typical of an MRI scan, and the random walk time-step is given by `dt`. The random walk is t/dt steps long, and the step size is calculated from the mean square displacement formula derived from the Einstein's PDF in three dimensions (see the code below). The following simulates the 3D random walk on 100 particles in the specified conditions, and calculates all diffusion components in intracellular and extracellular compartments. The first line of the output matrix refers to the horizontal and vertical components of diffusion, and the second and third lines refer to intracellular and extracellular diffusion values respectively. Finally we compute the diffusion tensor and fractional anisotropy.
+Consider the more realistic example of water diffusion in the nervous system, more specifically along axonal membranes. To create such an environment we use the `cells` function to generate a 2-dimensional cell environment and add one degree of freedom to the output. Consider only four cells as previously and a normal distribution of the cell radii with mean 0.005 mm and standard deviation 0.0025 mm. We use the MATLAB/Octave built-in function `normrand`. The cells are packed in a square region of side length `l`. At 37&ordm; temperature the coefficient of free diffusion in water is the specified value `D` (see the code below). The diffusion time interval `t` is typical of an MRI scan, and the random walk time-step is given by `dt`. The random walk is t/dt steps long, and the step size is calculated from the mean square displacement formula derived from the Einstein's PDF in three dimensions (see the code below). The following simulates the 3D random walk on 100 particles in the specified conditions, and calculates all diffusion components in intracellular and extracellular compartments. The first line of the output matrix refers to the horizontal and vertical components of diffusion, and the second and third lines refer to intracellular and extracellular diffusion values respectively. Finally we compute the diffusion tensor and fractional anisotropy.
 
 
 
@@ -258,6 +259,8 @@ FA =
 
 ```
 
+## Contributing
 
+[Contribution guidelines for this project](.github/CONTRIBUTING.md)
 
 <sub>[Published with MATLAB R2018a]("http://www.mathworks.com/products/matlab/")</sub>
