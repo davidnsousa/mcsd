@@ -39,7 +39,7 @@ function [C, vf] = cells(r, d)
         end
         % Create anonymous function for the present cell and combine it with C
         c = @(x, y, z, r2) ... 
-        (sqrt((x - o(1)) ^ 2 + (y - o(2)) ^ 2 + (z - o(3)) ^ 2) < r(i) + r2 ).* i;
+            (sqrt((x - o(1)) ^ 2 + (y - o(2)) ^ 2 + (z - o(3)) ^ 2) < r(i) + r2 ).* i;
         C = @(x, y, z, r2) C(x, y, z, r2) + c(x, y, z, r2);
     end
     % r2 is not relevant anymore. Set it to 0.
