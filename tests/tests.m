@@ -18,7 +18,7 @@ p_2D = rand(2, nw) * l;
 p_3D = rand(3, nw) * l;
 % Number of steps that each walker will give
 ns = t / dt;
-% The size of the step acording to the Einstein's PDF considering
+% The size of the step according to the Einstein's PDF considering
 % the number of dimensions
 ssize_1D = sqrt(2 * D * dt);
 ssize_2D = sqrt(4 * D * dt);
