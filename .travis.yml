@@ -9,5 +9,4 @@ addons:
     - octave
 
 script:
-    - cd mcsd 
     - octave-cli tests/run_tests.m
