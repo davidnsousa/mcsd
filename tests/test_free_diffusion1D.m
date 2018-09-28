@@ -13,7 +13,7 @@ nw = 1000;
 p = rand(1, nw) * l;
 % Number of steps that each walker will give
 ns = t / dt;
-% The size of the step acording to the Einstein's PDF considering
+% The size of the step according to the Einstein's PDF considering
 % the number of dimensions
 ssize = sqrt(2 * D * dt);
 % assert tolerance

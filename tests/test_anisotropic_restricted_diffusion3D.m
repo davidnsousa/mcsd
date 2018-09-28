@@ -13,7 +13,7 @@ nw = 100;
 p = rand(3, nw) * l;
 % Number of steps that each walker will give
 ns = t / dt;
-% The size of the step acording to the Einstein's PDF considering
+% The size of the step according to the Einstein's PDF considering
 % the number of dimensions
 ssize = sqrt(6 * D * dt);
 % Cell radii. Normal dstribution w/ mean 0.005 mm & sdev 0.0025 mm of 3
