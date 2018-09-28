@@ -1,3 +1,4 @@
+tic
 % Coefficient of free diffusion in the body at 37º temperature
 D = 0.003;
 % Diffusion time interval of a typical MRI scan
@@ -25,3 +26,4 @@ diffusion = @(dx) var(dx) / (2 * t);
 Diff = cmeasures(diffusion, X);
 assert(abs(Diff - D) <= tol, ...
     'Output Dx = %s outside tolerance interval %s', Diff, tol)
+toc

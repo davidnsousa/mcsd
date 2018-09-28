@@ -1,3 +1,4 @@
+tic
 % Coefficient of free diffusion in the body at 37º temperature
 D = 0.003;
 % Diffusion time interval of a typical MRI scan
@@ -43,3 +44,4 @@ assert(Diff(3) > Diff(1) && Diff(3) > Diff(2), ...
     'Output Dz = %s is less than Dx = %s and / or Dy = %s' ...
     , Diff(3), Diff(1), Diff(2))
 assert(FA >= 0 && FA <= 1, 'Fractional anisotropy %s is outside [0 1]')
+toc

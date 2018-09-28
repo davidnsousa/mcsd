@@ -1,3 +1,4 @@
+tic
 % Coefficient of free diffusion in the body at 37º temperature
 D = 0.003;
 % Diffusion time interval of a typical MRI scan
@@ -27,3 +28,4 @@ assert(abs(Diff(1) - D) <= tol, ...
     'Output Dx = %s outside tolerance interval %s', Diff(1), tol)
 assert(abs(Diff(2) - D) <= tol, ...
     'Output Dy = %s outside tolerance interval %s', Diff(2), tol)
+toc

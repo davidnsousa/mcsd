@@ -1,3 +1,4 @@
+tic
 % Coefficient of free diffusion in the body at 37º temperature
 D = 0.003;
 % Diffusion time interval of a typical MRI scan
@@ -32,3 +33,4 @@ diffusion = @(dx) var(dx) / (2 * t);
 Diff = cmeasures(diffusion, X);
 assert(Diff(1) < (D + tol), 'Output Dx = %s is greater than allowed by tol', Diff(1))
 assert(Diff(2) < (D + tol), 'Output Dy = %s is greater than allowed by tol', Diff(2))
+toc
