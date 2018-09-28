@@ -5,9 +5,9 @@ t = 0.026;
 % Random walk time-step
 dt = 0.000025;
 % Side length of the region where the cells are packed (mm)
-l = 0.02;
+l = 0.01;
 % Number of walkers
-nw = 1000;
+nw = 100;
 % Initial positions of the walkers is random inside the region
 p = rand(3, nw) * l;
 % Number of steps that each walker will give
@@ -20,8 +20,9 @@ ssize = sqrt(6 * D * dt);
 cr = normrnd(0.005, 0.0025, 1, 2);
 % Region to pack the cells
 R = [0 l 0 l];
-% assert tolerance
-tol = 0.0005;
+% assert tolerance (bigger here than in the tests of free diffusion
+% because less walkers are used here)
+tol = 0.001;
 
 % Execute
 
@@ -36,8 +37,8 @@ dx = displacement(X);
 DT = cov(dx) / (2 * t);
 % Fractional anisotropy
 FA = fanisotropy(DT);
-assert(Diff(1) < D, 'Output Dx = %s is greater than %s', Diff(1), D)
-assert(Diff(2) < D, 'Output Dy = %s is greater than %s', Diff(2), D)
+assert(Diff(1) < (D + tol), 'Output Dx = %s is greater than allowed by tol', Diff(1))
+assert(Diff(2) < (D + tol), 'Output Dy = %s is greater than allowed by tol', Diff(2))
 assert(Diff(3) > Diff(1) && Diff(3) > Diff(2), ...
     'Output Dz = %s is less than Dx = %s and / or Dy = %s' ...
     , Diff(3), Diff(1), Diff(2))
