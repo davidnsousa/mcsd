@@ -8,4 +8,6 @@ addons:
     packages:
     - octave
 
-script: octave-cli tests/run_tests.m
+script:
+    - cd mcsd 
+    - octave-cli tests/run_tests.m

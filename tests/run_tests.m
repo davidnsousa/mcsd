@@ -1,5 +1,5 @@
-addpath("~/mcsd/mcsd"); 
-addpath("~/mcsd/tests");
+addpath("~/git/mcsd/mcsd"); 
+addpath("~/git/mcsd/tests");
 test_free_diffusion1D
 test_free_diffusion2D
 test_free_diffusion3D
