@@ -6,7 +6,7 @@ t = 0.026;
 % Random walk time-step
 dt = 0.000025;
 % Side length of the region where the cells are packed (mm)
-l = 0.01;
+l = 0.02;
 % Number of walkers
 nw = 100;
 % Initial positions of the walkers is random inside the region

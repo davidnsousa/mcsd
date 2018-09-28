@@ -6,7 +6,7 @@ t = 0.026;
 % Random walk time-step
 dt = 0.000025;
 % Side length of the region where the cells are packed (mm)
-l = 0.01;
+l = 0.02;
 % Number of walkers
 nw = 100;
 % Initial positions of the walkers is random inside the region
@@ -27,7 +27,7 @@ tol = 0.001;
 
 % Execute
 
-C = cells(cr, R);
+[C v] = cells(cr, R);
 X = rwalk(p, ns, ssize, C);
 diffusion = @(dx) var(dx) / (2 * t);
 Diff = cmeasures(diffusion, X);
