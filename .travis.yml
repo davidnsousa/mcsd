@@ -62,7 +62,6 @@ script:
           TEST_ARGS=RUN_DOC_TEST=true;
       fi;
 
-    - echo Test arguments $TEST_ARGS $COVER_ARGS $OUTPUT_ARGS $RESULT_ARGS
-    - make test $TEST_ARGS $COVER_ARGS $OUTPUT_ARGS $RESULT_ARGS
+    - octave --no-gui --eval "addpath('~/mcsd/mcsd');moxunit_set_path;moxunit_runtests('tests')"
     - eval $AFTER_SCRIPT
-    - octave --no-gui --eval "addpath('~/git/mcsd/mcsd');moxunit_set_path;moxunit_runtests('tests')"
+
