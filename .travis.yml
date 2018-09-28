@@ -36,7 +36,7 @@ before_install:
     - travis_retry git clone -v git://github.com/MOdox/MOdox.git
     - make -C MOdox install
     # go back to original directory
-    - cd MOxUnit
+    - cd mcsd
     # prevent shippable from re-using old test results
     - if [[  "$SHIPPABLE" == "true"  ]]; then
           if [[  "$WITH_COVERAGE" != "true" ]]; then
@@ -66,4 +66,3 @@ script:
     - make test $TEST_ARGS $COVER_ARGS $OUTPUT_ARGS $RESULT_ARGS
     - eval $AFTER_SCRIPT
     - octave --no-gui --eval "addpath('~/git/mcsd/mcsd');moxunit_set_path;moxunit_runtests('tests')"
-
