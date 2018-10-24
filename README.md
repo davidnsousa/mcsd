@@ -13,8 +13,8 @@ MCSD is a simple MATLAB/Octave tool designed to simulate diffusion processes in 
 ## Contents
 
             
-- Getting started        
-- Details        
+- Getting started
+- Details
 - Examples
 - Contributing
 
@@ -46,7 +46,7 @@ The following functions are provided:
   - `where` - indicates what particles are inside or outside compartments at a specific time frame/step.
   - `fanisotropy` - calculates the fractional anisotropy of diffusion.
 
-For details about these functions input and output parameters use the Matlab help function `help` followed by the name of the function (e.g. `help rwalk`), or you can access the documentation at `mcsd/doc/index.tml`. In MATLAB the Statistics and Machine Learning Toolbox is required for a complete functioning of this package.
+For details about these functions input and output parameters use the Matlab help function `help` followed by the name of the function (e.g. `help rwalk`), or you can access the documentation at `mcsd/doc/index.tml`. In MATLAB the Statistics and Machine Learning Toolbox is required for a complete functioning of this package. MCSD is compatible only with MATLAB versions above R2016b. If backward compatibility is needed please see issue [#16](https://github.com/davidnsousa/mcsd/issues/16).
 
 A tutorial and a replication script (in MATLAB) for the tutorial can be found at the MCSD github repository.
 
