@@ -1,4 +1,4 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1323319.svg)](https://doi.org/10.5281/zenodo.1323319) [![Build Status](https://travis-ci.org/davidnsousa/mcsd.svg?branch=master)](https://travis-ci.org/davidnsousa/mcsd) [![status](http://joss.theoj.org/papers/887b1b7792d59ea6582a4700f8ff98ad/status.svg)](http://joss.theoj.org/papers/887b1b7792d59ea6582a4700f8ff98ad)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.1471546.svg)](https://doi.org/10.5281/zenodo.1471546) [![Build Status](https://travis-ci.org/davidnsousa/mcsd.svg?branch=master)](https://travis-ci.org/davidnsousa/mcsd) [![status](http://joss.theoj.org/papers/887b1b7792d59ea6582a4700f8ff98ad/status.svg)](http://joss.theoj.org/papers/887b1b7792d59ea6582a4700f8ff98ad)
 
 # MCSD: MATLAB/Octave tool for Monte-Carlo simulations of diffusion in biological tissues
 
